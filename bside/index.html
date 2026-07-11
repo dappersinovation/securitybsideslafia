@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./image/file_0000000093a071f4b43480e8bcb918de.png">
+    <title>BSides Lafia | Cybersecurity Conference</title>
+    <!-- Monnify Inline SDK Package -->
+    <script src="https://sdk.monnify.com/plugin/monnify.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --panel-bg: rgba(20, 24, 35, 0.8);
+            --cyber-red: #ff3333;
+            --cyber-red-glow: rgba(255, 51, 51, 0.4);
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Video Background with Mask Overlay */
+        .video-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(10, 12, 16, 0.95) 40%, rgba(20, 24, 35, 0.8) 100%);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(10, 12, 16, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .logo span {
+            color: var(--cyber-red);
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyber-red);
+        }
+
+        .nav-socials {
+            display: flex;
+            gap: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding-left: 1rem;
+            align-items: center;
+        }
+
+        .nav-socials a,
+        .footer-socials a {
+            color: var(--text-muted);
+            transition: color 0.3s, transform 0.2s;
+            display: inline-flex;
+        }
+
+        .nav-socials a:hover,
+        .footer-socials a:hover {
+            color: var(--cyber-red);
+            transform: translateY(-1px);
+        }
+
+        .nav-socials svg,
+        .footer-socials svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Hero Section */
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 1rem 4rem 1rem;
+        }
+
+        .hero-badge {
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid var(--cyber-red);
+            color: var(--text-light);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px var(--cyber-red-glow);
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            color: var(--text-light);
+        }
+
+        header h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--cyber-red);
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Action Buttons Grid */
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--cyber-red);
+            color: #ffffff;
+            border: 1px solid var(--cyber-red);
+            box-shadow: 0 4px 20px var(--cyber-red-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 51, 51, 0.7);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--cyber-red);
+            background: rgba(255, 51, 51, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Lead Organizer Section styling */
+        .lead-section {
+            padding: 4rem 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lead-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 51, 51, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 650px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .lead-image-wrapper {
+            position: relative;
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--cyber-red), transparent);
+            box-shadow: 0 0 15px var(--cyber-red-glow);
+        }
+
+        .lead-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #141823;
+        }
+
+        .lead-info {
+            flex: 1;
+        }
+
+        .lead-title-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--cyber-red);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .lead-info h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .lead-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        .lead-social-icons {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .lead-social-icons a {
+            color: var(--text-muted);
+            transition: color 0.3s, transform 0.2s;
+            display: inline-flex;
+        }
+
+        .lead-social-icons a:hover {
+            color: var(--cyber-red);
+            transform: translateY(-2px);
+        }
+
+        .lead-social-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Modern Footer */
+        footer {
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Dynamic Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 12, 16, 0.9);
+            backdrop-filter: blur(16px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--cyber-red);
+        }
+
+        .modal h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .modal p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #fff;
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--cyber-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-socials {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-container {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .lead-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Abstract Video Background Layer -->
+    <div class="video-background-container">
+        <video autoplay loop muted playsinline
+            poster="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1920">
+            <source
+                src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-security-data-42353-large.mp4"
+                type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="logo">BSides<span>Lafia</span></div>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#" onclick="openModal('registerModal')">Tickets</a></li>
+                <li><a href="#" onclick="openModal('cfpModal')">CFP</a></li>
+                <li><a href="#" onclick="openModal('sponsorModal')">Sponsor</a></li>
+            </ul>
+            <div class="nav-socials">
+                <!-- BSides Lafia X (Twitter) -->
+                <a href="https://x.com/BsidesLafia" target="_blank" title="BSides Lafia X">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <!-- BSides Lafia LinkedIn -->
+                <a href="https://www.linkedin.com/company/bsides-lafia/" target="_blank" title="BSides Lafia LinkedIn">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                </a>
+                <!-- BSides Lafia Facebook -->
+                <a href="https://www.facebook.com/profile.php?id=61591909225774" target="_blank"
+                    title="BSides Lafia Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Hero Shell -->
+    <header>
+        <div class="hero-badge">official Bsides lafia // Nigeria</div>
+        <h1>The Premier Community<br><span>Cybersecurity</span> confference in Lafia</h1>
+        <p>welcome to Bsides Lafia, a community-driven cybersecurity confference where professionals, students,
+            researchers, and ethusiasts connect, learn, and share knowledge through talks, worshops, CTFs, and
+            networking.</p>
+
+        <div class="cta-container">
+            <button class="btn btn-primary" onclick="openModal('registerModal')">Register Pass</button>
+            <button class="btn btn-secondary" onclick="openModal('cfpModal')">Submit Speaker CFP</button>
+            <button class="btn btn-outline" onclick="openModal('sponsorModal')">Process Sponsorship Payment</button>
+        </div>
+    </header>
+
+    <!-- Organizing Lead Shell Frame -->
+    <section class="lead-section">
+        <div class="lead-card">
+            <div class="lead-image-wrapper">
+                <!-- Converted your Drive view link into a direct resource download target so the browser displays it correctly -->
+                <img class="lead-image" src="image/WhatsApp Image 2026-07-11 at 12.36.00 PM.jpeg"
+                    alt="Abubakar Abdulrahman Adamu">
+            </div>
+            <div class="lead-info">
+                <span class="lead-title-badge">Organizing Lead</span>
+                <h2>Abubakar Abdulrahman Adamu (DAPPER)</h2>
+                <p>A frontend developer, pentester, and cybersecurity student at Federal University Lafia, dedicated to
+                    building secure digital architectures and fostering hacking community growth.</p>
+
+                <div class="lead-social-icons">
+                    <!-- Facebook SVG -->
+                    <a href="https://www.facebook.com/profile.php?id=100056873388989" target="_blank" title="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                        </svg>
+                    </a>
+                    <!-- LinkedIn SVG -->
+                    <a href="https://www.linkedn.com/in/abubakar-abdurahman-adamu-61b794306" target="_blank"
+                        title="LinkedIn">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                        </svg>
+                    </a>
+                    <!-- Instagram SVG -->
+                    <a href="https://www.instagram.com/dapper_one?igsh=MTFsZmUyZWZzeW50Yw==" target="_blank"
+                        title="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m12.4 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                        </svg>
+                    </a>
+                    <!-- Portfolio SVG -->
+                    <a href="https://dappersinovation.github.io/dapper02.github.io-index.html/" target="_blank"
+                        title="Portfolio">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.14 5.5c.85-1.72 1.45-3.56 1.78-5.5h3.32c-.8 2.87-2.6 5.25-5.1 6.5m-2.28 0c-2.5-1.25-4.3-3.63-5.1-6.5h3.32c.33 1.94.93 3.78 1.78 5.5M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20m0-18c-.85 1.72-1.45 3.56-1.78 5.5h3.56c-.33-1.94-.93-3.78-1.78-5.5M9 14c-.06-.66-.1-1.33-.1-2 0-.67.04-1.34.1-2h6c.06.66.1 1.33.1 2 0 .67-.04 1.34-.1 2M16.12 4.5c2.5 1.25 4.3 3.63 5.1 6.5h-3.32c-.33-1.94-.93-3.78-1.78-5.5M7.88 4.5c-.85 1.72-1.45 3.56-1.78 5.5H2.78c.8-2.87 2.6-5.25 5.1-6.5z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Window Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('registerModal')">&times;</button>
+            <h3>Secure Your Seat</h3>
+            <p>Access keynotes, raw hardware hacking setups, and technical workshops.</p>
+            <form action="https://formspree.io/f/mrewnalr" method="POST">
+                <input type="hidden" name="_subject" value="[BSides Lafia] Ticket Registration Request">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Professional Email</label>
+                    <input type="email" name="email" required placeholder="analyst@domain.com">
+                </div>
+                <div class="form-group">
+                    <label>Pass Tier</label>
+                    <select name="tier">
+                        <option value="General Delegate">General Delegate Pass - Free</option>
+                        <option value="Student / Academic">Student / Academic Researcher Pass - Free</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Complete
+                    Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Call for Papers Window Modal -->
+    <div id="cfpModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('cfpModal')">&times;</button>
+            <h3>Call For Papers (CFP)</h3>
+            <p>Share raw architectural insights, new tools, zero-day research, or compliance case studies.</p>
+            <form action="https://formspree.io/f/mrewnalr" method="POST">
+                <input type="hidden" name="_subject" value="[BSides Lafia] Speaker CFP Submission">
+
+                <div class="form-group">
+                    <label>Speaker Name</label>
+                    <input type="text" name="speaker_name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Presentation Title</label>
+                    <input type="text" name="talk_title" required placeholder="e.g., Hardening Microservice Frameworks">
+                </div>
+                <div class="form-group">
+                    <label>Abstract Overview</label>
+                    <textarea name="abstract" rows="4" required
+                        placeholder="Briefly detail what defensive tools, payloads, or telemetry datasets your talk examines..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Submit
+                    Briefing</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Corporate Sponsorship Payment Window Modal -->
+    <div id="sponsorModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('sponsorModal')">&times;</button>
+            <h3>Sponsorship Payment</h3>
+            <p>Complete your payment securely to secure your organization's sponsorship placement.</p>
+            <form action="https://formspree.io/f/mrewnalr" method="POST" id="paymentForm"
+                onsubmit="triggerMonnifyPayment(event)">
+                <input type="hidden" name="gateway_token" value="31EEF0BB422643D5FA81DBF6813B1FFD8">
+                <input type="hidden" name="_subject" value="[BSides Lafia] Confirmed Sponsorship Payment Entry">
+                <input type="hidden" id="monnifyRefInput" name="monnify_transaction_reference" value="">
+
+                <div class="form-group">
+                    <label>Company / Organization Name</label>
+                    <input type="text" id="companyName" name="company_name" required placeholder="Company Ltd">
+                </div>
+                <div class="form-group">
+                    <label>Billing Contact Email</label>
+                    <input type="email" id="companyEmail" name="company_email" required
+                        placeholder="corporate@company.com">
+                </div>
+                <div class="form-group">
+                    <label>Select Sponsorship Level</label>
+                    <select name="sponsorship_tier" id="sponsorTierSelect">
+                        <option value="Platinum Tier">Platinum Anchor Sponsor</option>
+                        <option value="Gold Tier">Gold Infrastructure Sponsor</option>
+                        <option value="Silver Tier">Silver Track Sponsor</option>
+                        <option value="Custom Donation/Sponsorship">Custom Support Tier</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount to Pay (NGN)</label>
+                    <input type="number" id="customAmount" name="amount" min="100" required
+                        placeholder="Enter amount in ₦ (e.g. 500000)"
+                        style="background: rgba(255, 51, 51, 0.05); border-color: var(--cyber-red); font-weight: 700;">
+                </div>
+                <button type="submit" id="payBtn" class="btn btn-primary" style="width:100%; margin-top:1rem;">Proceed
+                    to Checkout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Production Footer Links -->
+    <footer>
+        <div class="footer-text">&copy; 2026 BSides Lafia. Security Community Driven.</div>
+        <div class="footer-socials">
+            <!-- BSides Lafia X (Twitter) -->
+            <a href="https://x.com/BsidesLafia" target="_blank" title="X (Twitter)">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+            </a>
+            <!-- BSides Lafia LinkedIn -->
+            <a href="https://www.linkedin.com/company/bsides-lafia/" target="_blank" title="LinkedIn">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg>
+            </a>
+            <!-- BSides Lafia Facebook -->
+            <a href="https://www.facebook.com/profile.php?id=61591909225774" target="_blank" title="Facebook">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript Modal Controllers & Payment Engines -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function triggerMonnifyPayment(event) {
+            event.preventDefault();
+
+            const amountInput = document.getElementById('customAmount').value;
+            const amountToCharge = parseFloat(amountInput);
+
+            if (isNaN(amountToCharge) || amountToCharge <= 0) {
+                alert("Please declare a valid operational currency target amount before starting verification pathways.");
+                return;
+            }
+
+            const customerName = document.getElementById('companyName').value;
+            const customerEmail = document.getElementById('companyEmail').value;
+            const tierSelection = document.getElementById('sponsorTierSelect').value;
+
+            const payButton = document.getElementById('payBtn');
+            payButton.innerText = "Initializing SDK...";
+            payButton.disabled = true;
+
+            MonnifySDK.initialize({
+                amount: amountToCharge,
+                currency: "NGN",
+                reference: "BSIDES-LAFIA-" + new Date().getTime(),
+                customerName: customerName,
+                customerEmail: customerEmail,
+                apiKey: "MK_TEST_0A8L6E5YBZ",
+                contractCode: "7833968763",
+                paymentDescription: "BSides Lafia Corporate Sponsorship: " + tierSelection,
+                isTestMode: true,
+                onComplete: function (response) {
+                    if (response.paymentStatus === 'PAID' || response.status === 'SUCCESSFUL') {
+                        document.getElementById('monnifyRefInput').value = response.transactionReference;
+                        payButton.innerText = "Payment Confirmed! Submitting...";
+                        document.getElementById('paymentForm').submit();
+                    } else {
+                        alert("Payment structure returned unconfirmed status flag: " + response.paymentStatus);
+                        payButton.innerText = "Proceed to Checkout";
+                        payButton.disabled = false;
+                    }
+                },
+                onClose: function (data) {
+                    alert("Secure transaction engine wrapper dropped manually by client.");
+                    payButton.innerText = "Proceed to Checkout";
+                    payButton.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
