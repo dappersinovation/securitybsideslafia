@@ -245,27 +245,55 @@
             transform: translateY(-2px);
         }
 
-        /* Lead Organizer Section styling */
-        .lead-section {
+        /* Team Section styling */
+        .team-section {
             padding: 4rem 5%;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--cyber-red);
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .lead-card {
             background: var(--panel-bg);
             border: 1px solid rgba(255, 51, 51, 0.2);
             border-radius: 12px;
-            padding: 2.5rem;
-            max-width: 650px;
+            padding: 2rem;
             width: 100%;
+            max-width: 360px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            text-align: center;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .lead-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cyber-red);
         }
 
         .lead-image-wrapper {
@@ -277,6 +305,7 @@
             padding: 4px;
             background: linear-gradient(135deg, var(--cyber-red), transparent);
             box-shadow: 0 0 15px var(--cyber-red-glow);
+            margin-bottom: 1.5rem;
         }
 
         .lead-image {
@@ -288,7 +317,7 @@
         }
 
         .lead-info {
-            flex: 1;
+            width: 100%;
         }
 
         .lead-title-badge {
@@ -302,14 +331,14 @@
         }
 
         .lead-info h2 {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
         .lead-info p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
             margin-bottom: 1.25rem;
         }
@@ -318,6 +347,7 @@
             display: flex;
             gap: 1.2rem;
             align-items: center;
+            justify-content: center;
         }
 
         .lead-social-icons a {
@@ -483,12 +513,6 @@
                 max-width: 320px;
             }
 
-            .lead-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-
             .modal-content {
                 padding: 2rem 1.5rem;
             }
@@ -553,9 +577,9 @@
     <!-- Main Hero Shell -->
     <header>
         <div class="hero-badge">official Bsides lafia // Nigeria</div>
-        <h1>The Premier Community<br><span>Cybersecurity</span> confference in Lafia</h1>
-        <p>welcome to Bsides Lafia, a community-driven cybersecurity confference where professionals, students,
-            researchers, and ethusiasts connect, learn, and share knowledge through talks, worshops, CTFs, and
+        <h1>The Premier Community<br><span>Cybersecurity</span> Conference in Lafia</h1>
+        <p>Welcome to BSides Lafia, a community-driven cybersecurity conference where professionals, students,
+            researchers, and enthusiasts connect, learn, and share knowledge through talks, workshops, CTFs, and
             networking.</p>
 
         <div class="cta-container">
@@ -565,54 +589,113 @@
         </div>
     </header>
 
-    <!-- Organizing Lead Shell Frame -->
-    <section class="lead-section">
-        <div class="lead-card">
-            <div class="lead-image-wrapper">
-                <!-- Converted your Drive view link into a direct resource download target so the browser displays it correctly -->
-                <img class="lead-image" src="image/WhatsApp Image 2026-07-11 at 12.36.00 PM.jpeg"
-                    alt="Abubakar Abdulrahman Adamu">
-            </div>
-            <div class="lead-info">
-                <span class="lead-title-badge">Organizing Lead</span>
-                <h2>Abubakar Abdulrahman Adamu (DAPPER)</h2>
-                <p>A frontend developer, pentester, and cybersecurity student at Federal University Lafia, dedicated to
-                    building secure digital architectures and fostering hacking community growth.</p>
+    <!-- Organizing Team Section -->
+    <section class="team-section">
+        <h2 class="section-title">Organizing <span>Team</span></h2>
+        <div class="team-grid">
 
-                <div class="lead-social-icons">
-                    <!-- Facebook SVG -->
-                    <a href="https://www.facebook.com/profile.php?id=100056873388989" target="_blank" title="Facebook">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
-                        </svg>
-                    </a>
-                    <!-- LinkedIn SVG -->
-                    <a href="https://www.linkedn.com/in/abubakar-abdurahman-adamu-61b794306" target="_blank"
-                        title="LinkedIn">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                        </svg>
-                    </a>
-                    <!-- Instagram SVG -->
-                    <a href="https://www.instagram.com/dapper_one?igsh=MTFsZmUyZWZzeW50Yw==" target="_blank"
-                        title="Instagram">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m12.4 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
-                        </svg>
-                    </a>
-                    <!-- Portfolio SVG -->
-                    <a href="https://dappersinovation.github.io/dapper02.github.io-index.html/" target="_blank"
-                        title="Portfolio">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.14 5.5c.85-1.72 1.45-3.56 1.78-5.5h3.32c-.8 2.87-2.6 5.25-5.1 6.5m-2.28 0c-2.5-1.25-4.3-3.63-5.1-6.5h3.32c.33 1.94.93 3.78 1.78 5.5M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20m0-18c-.85 1.72-1.45 3.56-1.78 5.5h3.56c-.33-1.94-.93-3.78-1.78-5.5M9 14c-.06-.66-.1-1.33-.1-2 0-.67.04-1.34.1-2h6c.06.66.1 1.33.1 2 0 .67-.04 1.34-.1 2M16.12 4.5c2.5 1.25 4.3 3.63 5.1 6.5h-3.32c-.33-1.94-.93-3.78-1.78-5.5M7.88 4.5c-.85 1.72-1.45 3.56-1.78 5.5H2.78c.8-2.87 2.6-5.25 5.1-6.5z" />
-                        </svg>
-                    </a>
+            <!-- Lead Organizer -->
+            <div class="lead-card">
+                <div class="lead-image-wrapper">
+                    <img class="lead-image" src="image/WhatsApp Image 2026-07-11 at 12.36.00 PM.jpeg"
+                        alt="Abubakar Abdulrahman Adamu">
+                </div>
+                <div class="lead-info">
+                    <span class="lead-title-badge">Organizing Lead</span>
+                    <h2>Abubakar Abdulrahman Adamu (DAPPER)</h2>
+                    <p>A frontend developer, pentester, and cybersecurity student at Federal University Lafia, dedicated
+                        to
+                        building secure digital architectures and fostering hacking community growth.</p>
+
+                    <div class="lead-social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=100056873388989" target="_blank"
+                            title="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abubakar-abdurahman-adamu-61b794306" target="_blank"
+                            title="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/dapper_one?igsh=MTFsZmUyZWZzeW50Yw==" target="_blank"
+                            title="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m12.4 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                            </svg>
+                        </a>
+                        <a href="https://dappersinovation.github.io/dapper02.github.io-index.html/" target="_blank"
+                            title="Portfolio">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.14 5.5c.85-1.72 1.45-3.56 1.78-5.5h3.32c-.8 2.87-2.6 5.25-5.1 6.5m-2.28 0c-2.5-1.25-4.3-3.63-5.1-6.5h3.32c.33 1.94.93 3.78 1.78 5.5M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20m0-18c-.85 1.72-1.45 3.56-1.78 5.5h3.56c-.33-1.94-.93-3.78-1.78-5.5M9 14c-.06-.66-.1-1.33-.1-2 0-.67.04-1.34.1-2h6c.06.66.1 1.33.1 2 0 .67-.04 1.34-.1 2M16.12 4.5c2.5 1.25 4.3 3.63 5.1 6.5h-3.32c-.33-1.94-.93-3.78-1.78-5.5M7.88 4.5c-.85 1.72-1.45 3.56-1.78 5.5H2.78c.8-2.87 2.6-5.25 5.1-6.5z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- Co-Lead Organizer -->
+            <div class="lead-card">
+                <div class="lead-image-wrapper">
+                    <img class="lead-image"
+                        src="image/IMG-20260725-WA0016.jpg"
+                        alt="Abdulhamid Saleh">
+                </div>
+                <div class="lead-info">
+                    <span class="lead-title-badge">Co-Lead Organizer</span>
+                    <h2>Abdulhamid Saleh</h2>
+                    <p>Co-leading community initiatives, event operations, and technical planning to deliver an
+                        impactful BSides Lafia experience.</p>
+
+                    <div class="lead-social-icons">
+                        <a href="https://www.linkedin.com/in/usman-abdul-hamid-saleh-92348b373" target="_blank"
+                            title="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finance, Operations & Logistics Lead -->
+            <div class="lead-card">
+                <div class="lead-image-wrapper">
+                    <img class="lead-image"
+                        src="image/IMG-20260724-WA0004(1).jpg"
+                        alt="Muhammad Haruna Osori">
+                </div>
+                <div class="lead-info">
+                    <span class="lead-title-badge">Finance, Ops & Logistics Lead</span>
+                    <h2>Muhammad Haruna Osori</h2>
+                    <p>Overseeing financial management, operational workflows, and event logistics for seamless
+                        conference execution.</p>
+
+                    <div class="lead-social-icons">
+                        <a href="https://www.facebook.com/haruna.osori" target="_blank" title="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/muhammad-osori-haruna-99829634b" target="_blank"
+                            title="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
