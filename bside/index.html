@@ -187,6 +187,49 @@
             line-height: 1.6;
         }
 
+        /* Common Section Styling */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--cyber-red);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-container {
+            max-width: 900px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .about-container p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .about-container p:last-child {
+            margin-bottom: 0;
+        }
+
         /* Action Buttons Grid */
         .cta-container {
             display: flex;
@@ -251,19 +294,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-
-        .section-title span {
-            color: var(--cyber-red);
         }
 
         .team-grid {
@@ -365,6 +395,53 @@
             width: 20px;
             height: 20px;
             fill: currentColor;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .contact-email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--cyber-red);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px dashed var(--cyber-red);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email-link:hover {
+            background: var(--cyber-red);
+            color: #fff;
+            box-shadow: 0 0 20px var(--cyber-red-glow);
         }
 
         /* Modern Footer */
@@ -543,9 +620,11 @@
         <div class="logo">BSides<span>Lafia</span></div>
         <div class="nav-container">
             <ul class="nav-links">
+                <li><a href="#about">About</a></li>
                 <li><a href="#" onclick="openModal('registerModal')">Tickets</a></li>
                 <li><a href="#" onclick="openModal('cfpModal')">CFP</a></li>
                 <li><a href="#" onclick="openModal('sponsorModal')">Sponsor</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-socials">
                 <!-- BSides Lafia X (Twitter) -->
@@ -588,6 +667,15 @@
             <button class="btn btn-outline" onclick="openModal('sponsorModal')">Process Sponsorship Payment</button>
         </div>
     </header>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">About <span>BSides Lafia</span></h2>
+        <div class="about-container">
+            <p><strong>Security BSides</strong> is a global framework of community-organized, independent cybersecurity events created to expand the conversation for Information Security professionals. BSides events offer an intimate, open environment for attendees to exchange ideas, present technical research, and engage in hands-on learning.</p>
+            <p><strong>BSides Lafia</strong> brings this global movement to Nasarawa State, Nigeria. Our mission is to foster local talent, unite security researchers, developers, students, and industry professionals, and create an inclusive space for technical knowledge sharing, mentorship, and collaboration.</p>
+        </div>
+    </section>
 
     <!-- Organizing Team Section -->
     <section class="team-section">
@@ -699,6 +787,17 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="contact-card">
+            <p>Have questions, sponsorship inquiries, or partnership proposals? Reach out directly to the organizers.</p>
+            <a href="mailto:bsideslafia@gmail.com" class="contact-email-link">
+                ✉ bsideslafia@gmail.com
+            </a>
+        </div>
+    </section>
+
     <!-- Registration Window Modal -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
@@ -801,7 +900,7 @@
 
     <!-- Production Footer Links -->
     <footer>
-        <div class="footer-text">&copy; 2026 BSides Lafia. Security Community Driven.</div>
+        <div class="footer-text">&copy; 2026 BSides Lafia. Security Community Driven. Contact: <a href="mailto:bsideslafia@gmail.com" style="color: var(--cyber-red); text-decoration: none;">bsideslafia@gmail.com</a></div>
         <div class="footer-socials">
             <!-- BSides Lafia X (Twitter) -->
             <a href="https://x.com/BsidesLafia" target="_blank" title="X (Twitter)">
@@ -817,81 +916,17 @@
                         d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
                 </svg>
             </a>
-            <!-- BSides Lafia Facebook -->
-            <a href="https://www.facebook.com/profile.php?id=61591909225774" target="_blank" title="Facebook">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
-                </svg>
-            </a>
         </div>
     </footer>
 
-    <!-- JavaScript Modal Controllers & Payment Engines -->
+    <!-- JavaScript Modal Controls -->
     <script>
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function (event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function triggerMonnifyPayment(event) {
-            event.preventDefault();
-
-            const amountInput = document.getElementById('customAmount').value;
-            const amountToCharge = parseFloat(amountInput);
-
-            if (isNaN(amountToCharge) || amountToCharge <= 0) {
-                alert("Please declare a valid operational currency target amount before starting verification pathways.");
-                return;
-            }
-
-            const customerName = document.getElementById('companyName').value;
-            const customerEmail = document.getElementById('companyEmail').value;
-            const tierSelection = document.getElementById('sponsorTierSelect').value;
-
-            const payButton = document.getElementById('payBtn');
-            payButton.innerText = "Initializing SDK...";
-            payButton.disabled = true;
-
-            MonnifySDK.initialize({
-                amount: amountToCharge,
-                currency: "NGN",
-                reference: "BSIDES-LAFIA-" + new Date().getTime(),
-                customerName: customerName,
-                customerEmail: customerEmail,
-                apiKey: "MK_TEST_0A8L6E5YBZ",
-                contractCode: "7833968763",
-                paymentDescription: "BSides Lafia Corporate Sponsorship: " + tierSelection,
-                isTestMode: true,
-                onComplete: function (response) {
-                    if (response.paymentStatus === 'PAID' || response.status === 'SUCCESSFUL') {
-                        document.getElementById('monnifyRefInput').value = response.transactionReference;
-                        payButton.innerText = "Payment Confirmed! Submitting...";
-                        document.getElementById('paymentForm').submit();
-                    } else {
-                        alert("Payment structure returned unconfirmed status flag: " + response.paymentStatus);
-                        payButton.innerText = "Proceed to Checkout";
-                        payButton.disabled = false;
-                    }
-                },
-                onClose: function (data) {
-                    alert("Secure transaction engine wrapper dropped manually by client.");
-                    payButton.innerText = "Proceed to Checkout";
-                    payButton.disabled = false;
-                }
-            });
         }
     </script>
 </body>
