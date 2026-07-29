@@ -7,8 +7,6 @@
     <meta name="google-site-verification" content="4p6sX-B6Dz3gdlenT8SYLiqJ1ndGzlXdaRRd_YwJBog" />
     <link rel="icon" href="./image/favicon.png">
     <title>BSides Lafia | Cybersecurity Conference</title>
-    <!-- Monnify Inline SDK Package -->
-    <script src="https://sdk.monnify.com/plugin/monnify.js"></script>
     <style>
         :root {
             --bg-dark: #0a0c10;
@@ -573,7 +571,7 @@
         .modal p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         /* Form Controls */
@@ -612,7 +610,7 @@
             border-color: var(--cyber-red);
         }
 
-        /* Responsive Media Query for Mobile Menu Drawer */
+        /* Mobile Menu Drawer */
         @media (max-width: 900px) {
             .info-grid {
                 grid-template-columns: 1fr;
@@ -765,7 +763,7 @@
         <div class="cta-container">
             <button class="btn btn-primary" onclick="openModal('registerModal')">Register Pass</button>
             <button class="btn btn-secondary" onclick="openModal('cfpModal')">Submit Speaker CFP</button>
-            <button class="btn btn-outline" onclick="openModal('sponsorModal')">Process Sponsorship Payment</button>
+            <button class="btn btn-outline" onclick="openModal('sponsorModal')">Sponsor BSides Lafia</button>
         </div>
     </header>
 
@@ -801,8 +799,7 @@
                     <span class="lead-title-badge">Organizing Lead</span>
                     <h2>Abubakar Abdulrahman Adamu (DAPPER)</h2>
                     <p>A software developer, pentester, and cybersecurity student at Federal University Lafia, dedicated
-                        to
-                        building secure digital architectures and fostering hacking community growth.</p>
+                        to building secure digital architectures and fostering hacking community growth.</p>
 
                     <div class="lead-social-icons">
                         <a href="https://www.facebook.com/profile.php?id=100056873388989" target="_blank"
@@ -965,33 +962,37 @@
         </div>
     </div>
 
-    <!-- Corporate Sponsorship Payment Window Modal -->
+    <!-- Corporate Sponsorship Inquiry Modal -->
     <div id="sponsorModal" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('sponsorModal')">&times;</button>
-            <h3>Sponsorship Payment</h3>
-            <p>Complete your payment securely to secure your organization's sponsorship placement.</p>
-            <form action="https://formspree.io/f/mrewnalr" method="POST" id="paymentForm"
-                onsubmit="triggerMonnifyPayment(event)">
-                <input type="hidden" name="_subject" value="[BSides Lafia] Sponsorship Payment & Request">
+            <h3>Sponsor BSides Lafia</h3>
+            <p>Partner with us to support cybersecurity talent in Lafia. Fill out the form below or email us directly at <a href="mailto:bsideslafia@gmail.com" style="color: var(--cyber-red); font-weight: 600;">bsideslafia@gmail.com</a>.</p>
+            <form action="https://formspree.io/f/mrewnalr" method="POST">
+                <input type="hidden" name="_subject" value="[BSides Lafia] Sponsorship Inquiry">
 
                 <div class="form-group">
                     <label>Organization / Sponsor Name</label>
-                    <input type="text" id="sponsorName" name="sponsor_name" required placeholder="Company or Brand Name">
+                    <input type="text" name="sponsor_name" required placeholder="Company or Brand Name">
                 </div>
                 <div class="form-group">
                     <label>Contact Email</label>
-                    <input type="email" id="sponsorEmail" name="sponsor_email" required placeholder="billing@company.com">
+                    <input type="email" name="sponsor_email" required placeholder="billing@company.com">
                 </div>
                 <div class="form-group">
-                    <label>Sponsorship Tier / Amount (NGN)</label>
-                    <select id="sponsorAmount" name="amount">
-                        <option value="50000">Silver Tier - ₦50,000</option>
-                        <option value="150000">Gold Tier - ₦150,000</option>
-                        <option value="300000">Platinum Tier - ₦300,000</option>
+                    <label>Interested Sponsorship Tier</label>
+                    <select name="sponsorship_tier">
+                        <option value="Silver Tier">Silver Tier</option>
+                        <option value="Gold Tier">Gold Tier</option>
+                        <option value="Platinum Tier">Platinum Tier</option>
+                        <option value="Custom Partnership">Custom Partnership</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Proceed to Payment</button>
+                <div class="form-group">
+                    <label>Message / Additional Details</label>
+                    <textarea name="message" rows="3" placeholder="Let us know your goals or any specific requirements..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Send Sponsorship Proposal</button>
             </form>
         </div>
     </div>
@@ -1018,7 +1019,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Modals, Mobile Hamburger Menu, & Monnify Payment -->
+    <!-- JavaScript for Modals & Mobile Navigation -->
     <script>
         // Mobile Navigation Toggle
         const menuToggle = document.getElementById('menuToggle');
@@ -1046,47 +1047,6 @@
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
             }
-        }
-
-        // Monnify Payment Trigger Function
-        function triggerMonnifyPayment(event) {
-            event.preventDefault(); 
-
-            const name = document.getElementById('sponsorName').value;
-            const email = document.getElementById('sponsorEmail').value;
-            const amount = parseFloat(document.getElementById('sponsorAmount').value);
-            const paymentReference = 'BSIDES-' + Date.now();
-
-            MonnifySDK.initialize({
-                amount: amount,
-                currency: "NGN",
-                reference: paymentReference,
-                customerName: name,
-                customerEmail: email,
-                apiKey: "YOUR_MONNIFY_API_KEY", 
-                contractCode: "YOUR_MONNIFY_CONTRACT_CODE", 
-                paymentDescription: "BSides Lafia Sponsorship Payment",
-                isTestMode: true, 
-                incomeSplitConfig: [],
-                onLoadStart: () => {
-                    console.log("Monnify SDK initialized");
-                },
-                onLoadComplete: () => {
-                    console.log("Monnify SDK loaded");
-                },
-                onComplete: function(response) {
-                    console.log(response);
-                    if(response.paymentStatus === "SUCCESS") {
-                        alert("Payment successful! Submitting your sponsorship details.");
-                        document.getElementById('paymentForm').submit();
-                    } else {
-                        alert("Payment transaction was not successful. Status: " + response.paymentStatus);
-                    }
-                },
-                onClose: function(data) {
-                    console.log("Payment modal closed", data);
-                }
-            });
         }
     </script>
 </body>
